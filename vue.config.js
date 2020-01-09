@@ -1,6 +1,4 @@
 module.exports = {
-    devServer:{
-
-    },
-    lintOnSave:false
+    devServer: {},
+    lintOnSave: false
 }

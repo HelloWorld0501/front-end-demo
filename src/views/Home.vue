@@ -1,20 +1,23 @@
 <template>
-    <div class="page">
-        <h2>Home Page</h2>
-        <h3>{{$t('common.doc')}}</h3>
-        <Button type="primary" @click="testAxios()">Axios</Button>
-        <Button type="success" @click="changeLang('zh_cn')">简体中文</Button>
-        <Button type="success" @click="changeLang('en_us')">English</Button>
-        <Button type="primary" @click="getUser()">用户</Button>
-        <Button type="primary" @click="getMenu()">菜单</Button>
+    <div class="container">
+        <NavBar></NavBar>
+        <HeadBar></HeadBar>
+        <MainContent></MainContent>
     </div>
 </template>
 
 <script>
     import axios from 'axios'
     import mock from '@/mock/index'
-
+    import HeadBar from '@/components/framework/HeadBar'
+    import NavBar from '@/components/framework/NavBar'
+    import MainContent from '@/components/framework/MainContent'
     export default {
+        components:{
+          HeadBar,
+          NavBar,
+          MainContent
+        },
         name: "Home",
         data() {
             return {}
@@ -58,6 +61,12 @@
     }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+    .container {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        right: 0px;
+        bottom: 0px;
+    }
 </style>

@@ -8,7 +8,7 @@ import api from '@/http'
 import 'font-awesome/css/font-awesome.min.css'
 import i18n from './i18n'
 
-Vue.use(ViewUI);
+Vue.use(ViewUI)
 Vue.config.productionTip = false
 Vue.prototype.global = global
 Vue.prototype.$api = api
