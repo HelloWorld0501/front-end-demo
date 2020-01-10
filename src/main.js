@@ -7,6 +7,7 @@ import global from '@/utils/global'
 import api from '@/http'
 import 'font-awesome/css/font-awesome.min.css'
 import i18n from './i18n'
+import store from './store'
 
 Vue.use(ViewUI)
 Vue.config.productionTip = false
@@ -15,5 +16,6 @@ Vue.prototype.$api = api
 new Vue({
     i18n,
     router,
+    store,
     render: h => h(App),
 }).$mount('#app')

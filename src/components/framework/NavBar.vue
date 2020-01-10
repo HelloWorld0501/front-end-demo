@@ -1,14 +1,17 @@
 <template>
     <div class="menu-bar-container">
         <!--logo-->
-        <div class="logo menu-bar-width" style="background: #14889A"  @click="$router.push('/')">
-            <img src="@/assets/logo.png" alt=""/>
-            <div>神秘终端</div>
+        <div class="logo" :class="collapse?'menu-bar-collapse-width':'menu-bar-width'" style="background: #14889A"
+             @click="$route.path === '/' ? '' :$router.push('/')">
+            <img v-if="collapse" src="@/assets/logo.png"/>
+            <div>{{collapse?'':appName}}</div>
         </div>
     </div>
 </template>
 
 <script>
+    import {mapState} from 'vuex'
+
     export default {
         name: "NavBar",
         data() {
@@ -18,6 +21,12 @@
         beforeCreate: function () {
         },
         created: function () {
+        },
+        computed: {
+            ...mapState({
+                appName: state => state.app.appName,
+                collapse: state => state.app.collapse,
+            })
         },
         beforeMonut: function () {
         },
@@ -57,7 +66,7 @@
             }
 
             div {
-                font-size: 25px;
+                font-size: 22px;
                 color: white;
                 text-align: left;
                 padding-left: 20px;
@@ -67,6 +76,9 @@
         .menu-bar-width {
             width: 200px;
         }
-    }
 
+        .menu-bar-collapse-width {
+            width: 65px;
+        }
+    }
 </style>

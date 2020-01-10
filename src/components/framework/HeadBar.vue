@@ -1,8 +1,17 @@
 <template>
-    <div class="headbar position-left" style="background: #14889A">
+    <div class="headbar" :class="collapse?'position-collapse-left':'position-left'"
+         style="background: #14889A">
+        <!--        导航收缩-->
+        <span class="hamburg">
+            <Menu mode="horizontal" :theme="themeColor" @on-select="onCollapse">
+                <MenuItem style="background: #14889A;"  name="1">
+                    <Hamburger :isActive="collapse"></Hamburger>
+                </MenuItem>
+            </Menu>
+        </span>
         <!--工具栏-->
         <span class="toolbar">
-            <Menu mode="horizontal" :theme="themeColor" active-name="1">
+            <Menu mode="horizontal" :theme="themeColor" >
 <!--                iview没有提供背景色api,此处手动替换-->
                 <MenuItem style="background: #14889A;" name="1">
                     <span class="user-info">
@@ -16,7 +25,13 @@
 </template>
 
 <script>
+    import {mapState} from 'vuex'
+    import Hamburger from '@/components/Hamburger'
+
     export default {
+        components: {
+            Hamburger
+        },
         name: "HeadBar",
         data() {
             return {
@@ -29,7 +44,11 @@
                 }
             }
         },
-        methods: {},
+        methods: {
+            onCollapse(name) {
+                this.$store.commit('onCollapse')
+            },
+        },
         beforeCreate: function () {
         },
         created: function () {
@@ -42,6 +61,11 @@
                 this.user.name = user
                 this.user.avatar = require('@/assets/logo.png')
             }
+        },
+        computed: {
+            ...mapState({
+                collapse: state => state.app.collapse
+            })
         },
         updated: function () {
         },
@@ -65,7 +89,7 @@
         border-left-style: solid;
     }
 
-    .navbar {
+    .hamburg, .navbar {
         float: left;
     }
 
@@ -85,10 +109,13 @@
             margin: 10px 0px 10px 10px;
             float: right;
         }
-
     }
 
     .position-left {
         left: 200px;
+    }
+
+    .position-collapse-left {
+        left: 65px;
     }
 </style>
