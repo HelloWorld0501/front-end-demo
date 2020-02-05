@@ -21,8 +21,8 @@ const routes = [
     }
 ]
 const router = new Router({
-    mode:'history',
-    baseURI:process.env.BASE_URL,
+    mode: 'history',
+    baseURI: process.env.BASE_URL,
     routes
 })
 export default router
