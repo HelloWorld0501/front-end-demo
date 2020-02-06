@@ -5,15 +5,9 @@
 <script>
     export default {
         name: "ThemePicker",
-        props:{
-            theme:{
-                type:String,
-                default:'#ff66cc'
-            }
-        },
         data() {
             return {
-
+                theme:'ff66cc'
             }
         },
         methods: {},

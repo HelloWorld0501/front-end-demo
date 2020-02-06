@@ -12,7 +12,7 @@
                     </Icon>
                 </div>
                 <div class="tool-float">
-                    <Menu mode="horizontal"  active-name="1">
+                    <Menu mode="horizontal" active-name="1">
                         <MenuItem name="1">
                             <Icon type="ios-paper"/>
                             {{$t("common.doc")}}
@@ -31,10 +31,9 @@
                     <HeaderBar>
                     </HeaderBar>
                 </div>
-
             </Header>
             <Content :style="{margin: '20px', background: '#fff', minHeight: '260px'}">
-                Content
+
             </Content>
         </Layout>
     </Layout>

@@ -1,37 +1,42 @@
 <template>
     <!--工具栏-->
-    <span class="toolbar">
-        <Menu mode="horizontal">
-            <MenuItem name="1">
-                <ThemePicker :theme="themeColor"></ThemePicker>
-            </MenuItem>
-            <MenuItem name="2">
-                <Poptip placement="bottom">
-                    <li class="fa fa-language fa-lg"></li>
-                    <div slot="content">
-                        <List>
-                            <ListItem><p @click="changLang('zh_cn')">简体中文</p></ListItem>
-                            <ListItem><p @click="changLang('en_us')">English</p></ListItem>
-                        </List>
-                    </div>
-                </Poptip>
-            </MenuItem>
-            <MenuItem name="3">
+    <div class="toolbar">
+        <div class="toolbar-item">
+            <ThemePicker></ThemePicker>
+        </div>
+        <div class="toolbar-item">
+            <Dropdown>
+                <a href="javascript:void(0)">
+                    <Icon custom="fa fa-language fa-lg"></Icon>
+                </a>
+                <DropdownMenu slot="list">
+                    <DropdownItem><a @click="changLang('zh_cn')">简体中文</a></DropdownItem>
+                    <DropdownItem><a @click="changLang('en_us')">English</a></DropdownItem>
+                </DropdownMenu>
+            </Dropdown>
+        </div>
+        <div class="toolbar-item">
+            <Poptip trigger="hover" padding="0" placement="bottom-end">
                 <span class="user-info">
-                    <img :src="user.avatar" alt=""/>
+                    <Avatar shape="square" :src="user.avatar"/>
                     {{user.name}}
                 </span>
-            </MenuItem>
-        </Menu>
-    </span>
+                <div slot="content">
+                    <PersonalPanel :user="user"></PersonalPanel>
+                </div>
+            </Poptip>
+        </div>
+    </div>
 </template>
 
 <script>
     import ThemePicker from '@/components/ThemePicker'
+    import PersonalPanel from '@/views/core/PersonalPanel'
 
     export default {
         components: {
-            ThemePicker
+            ThemePicker,
+            PersonalPanel
         },
         name: "HeadBar",
         data() {
@@ -41,7 +46,7 @@
                     name: '张三',
                     avatar: require('@/assets/logo.png'),
                     role: '超级管理员',
-                    registeninfo: '注册时间: 2018-11-11'
+                    registeInfo: '注册时间: YYYY-MM-HH'
                 }
             }
         },
@@ -107,6 +112,12 @@
 <style scoped lang="scss">
     .toolbar {
         float: right;
+        padding-right: 25px;
+    }
+
+    .toolbar-item {
+        float: left;
+        padding-left: 45px;
     }
 
     .user-info {
