@@ -8,8 +8,8 @@
                 <div class="tool-float">
                     <Icon @click.native="reverseCollapse" :class="rotateIcon" :style="{margin: '0 20px'}"
                           type="md-menu"
-                          size="24">
-                    </Icon>
+                          size="24"/>
+
                 </div>
                 <div class="tool-float">
                     <Menu mode="horizontal" active-name="1">
@@ -21,7 +21,7 @@
                             <Icon type="ios-people"/>
                             项目
                         </MenuItem>
-                        <MenuItem name="4">
+                        <MenuItem name="3">
                             <Icon type="ios-construct"/>
                             博客
                         </MenuItem>

@@ -4,17 +4,15 @@
         <div class="toolbar-item">
             <ThemePicker></ThemePicker>
         </div>
+        <!--        多语言-->
         <div class="toolbar-item">
-            <Dropdown>
-                <a href="javascript:void(0)">
-                    <Icon custom="fa fa-language fa-lg"></Icon>
-                </a>
-                <DropdownMenu slot="list">
-                    <DropdownItem><a @click="changLang('zh_cn')">简体中文</a></DropdownItem>
-                    <DropdownItem><a @click="changLang('en_us')">English</a></DropdownItem>
-                </DropdownMenu>
-            </Dropdown>
+            <Internationalization></Internationalization>
         </div>
+        <!--        通知消息-->
+        <div class="toolbar-item">
+            <NoticePanel :notice="notice"></NoticePanel>
+        </div>
+        <!--        头像-->
         <div class="toolbar-item">
             <Poptip trigger="hover" padding="0" placement="bottom-end">
                 <span class="user-info">
@@ -30,13 +28,17 @@
 </template>
 
 <script>
-    import ThemePicker from '@/components/ThemePicker'
+    import ThemePicker from '@/views/core/ThemePicker'
     import PersonalPanel from '@/views/core/PersonalPanel'
+    import NoticePanel from '@/views/core/NoticePanel'
+    import Internationalization from '@/views/core/Internationalization'
 
     export default {
         components: {
+            Internationalization,
             ThemePicker,
-            PersonalPanel
+            PersonalPanel,
+            NoticePanel
         },
         name: "HeadBar",
         data() {
@@ -47,7 +49,30 @@
                     avatar: require('@/assets/logo.png'),
                     role: '超级管理员',
                     registeInfo: '注册时间: YYYY-MM-HH'
-                }
+                },
+                offsetValue: [],
+                notice: [
+                    {
+                        key: "1",
+                        icon: 'fa fa-envelope-o',
+                        content: '你修改了12431234用户密码'
+                    },
+                    {
+                        key: "2",
+                        icon: 'fa fa-music',
+                        content: '你修24124124改了用户头像'
+                    },
+                    {
+                        key: "3",
+                        icon: 'fa fa-edit',
+                        content: '今日123trddd41241225名新成员加入'
+                    },
+                    {
+                        key: "4",
+                        icon: 'fa fa-edit',
+                        content: '您发表了一篇新随笔'
+                    }
+                ]
             }
         },
         methods: {
@@ -57,26 +82,6 @@
             collapsedSider() {
                 this.$refs.side1.toggleCollapse();
             },
-            changLang(value) {
-                this.$Spin.show({
-                    render: (h) => {
-                        return h('div', [
-                            h('Icon', {
-                                'class': 'demo-spin-icon-load',
-                                props: {
-                                    type: 'ios-loading',
-                                    size: 18
-                                }
-                            }),
-                            h('div', '语言切换中')
-                        ])
-                    }
-                })
-                value === 'zh_cn' ? this.$i18n.locale = 'zh_cn' : this.$i18n.locale = 'en_us'
-                setTimeout(() => {
-                    this.$Spin.hide();
-                }, 1000);
-            }
         }
         ,
         beforeCreate: function () {

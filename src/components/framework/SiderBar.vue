@@ -64,7 +64,6 @@
     .logo {
         height: 64px;
         line-height: 60px;
-        /*background: #545c64;*/
         cursor: pointer;
         position: relative;
 
