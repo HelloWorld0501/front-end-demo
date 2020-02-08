@@ -1,5 +1,5 @@
 <template>
-    <ColorPicker v-model="theme" />
+    <ColorPicker v-model="theme"/>
 </template>
 
 <script>
@@ -7,7 +7,7 @@
         name: "ThemePicker",
         data() {
             return {
-                theme:'ff66cc'
+                theme: 'ff66cc'
             }
         },
         methods: {},

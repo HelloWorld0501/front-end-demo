@@ -9,7 +9,6 @@
                     <Icon @click.native="reverseCollapse" :class="rotateIcon" :style="{margin: '0 20px'}"
                           type="md-menu"
                           size="24"/>
-
                 </div>
                 <div class="tool-float">
                     <Menu mode="horizontal" active-name="1">
@@ -73,7 +72,6 @@
     }
 
     .layout {
-        border: 1px solid #d7dde4;
         background: #f5f7f9;
         border-radius: 4px;
         overflow: hidden;
@@ -82,17 +80,10 @@
 
     .layout-header-bar {
         padding: 0;
-        background: #fff;
+        background-color: #fff;
         box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
     }
 
-    .layout-logo-left {
-        width: 90%;
-        height: 30px;
-        background: #5b6270;
-        border-radius: 3px;
-        margin: 15px auto;
-    }
 
     .menu-icon {
         transition: all .3s;

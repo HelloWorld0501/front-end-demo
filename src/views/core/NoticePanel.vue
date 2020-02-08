@@ -14,7 +14,6 @@
             <DropdownItem class="item" divided>查看全部通知</DropdownItem>
         </DropdownMenu>
     </Dropdown>
-
 </template>
 
 <script>
@@ -69,7 +68,7 @@
 </script>
 
 <style scoped>
-    .item{
+    .item {
         text-align: center;
     }
 </style>

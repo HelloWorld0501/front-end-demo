@@ -8,21 +8,17 @@
         <div class="toolbar-item">
             <Internationalization></Internationalization>
         </div>
+        <!--       私信-->
+        <div class="toolbar-item">
+            <MessagePanel :letters="letters"></MessagePanel>
+        </div>
         <!--        通知消息-->
         <div class="toolbar-item">
             <NoticePanel :notice="notice"></NoticePanel>
         </div>
         <!--        头像-->
         <div class="toolbar-item">
-            <Poptip trigger="hover" padding="0" placement="bottom-end">
-                <span class="user-info">
-                    <Avatar shape="square" :src="user.avatar"/>
-                    {{user.name}}
-                </span>
-                <div slot="content">
-                    <PersonalPanel :user="user"></PersonalPanel>
-                </div>
-            </Poptip>
+            <PersonalPanel :user="user"></PersonalPanel>
         </div>
     </div>
 </template>
@@ -32,13 +28,15 @@
     import PersonalPanel from '@/views/core/PersonalPanel'
     import NoticePanel from '@/views/core/NoticePanel'
     import Internationalization from '@/views/core/Internationalization'
+    import MessagePanel from '@/views/core/MessagePanel'
 
     export default {
         components: {
             Internationalization,
             ThemePicker,
             PersonalPanel,
-            NoticePanel
+            NoticePanel,
+            MessagePanel
         },
         name: "HeadBar",
         data() {
@@ -72,8 +70,45 @@
                         icon: 'fa fa-edit',
                         content: '您发表了一篇新随笔'
                     }
-                ]
+                ],
+                letters: [
+                    {
+                        key: "1",
+                        avatar: require('@/assets/logo.png'),
+                        content: '你修改了用户密码',
+                        sender: '诸葛亮',
+                        time: '5分钟前'
+                    },
+                    {
+                        key: "2",
+                        avatar: require('@/assets/logo.png'),
+                        content: '你修改了用户头像',
+                        sender: '武则天',
+                        time: '2小时前'
+                    },
+                    {
+                        key: "3",
+                        avatar: require('@/assets/logo.png'),
+                        content: '今日25名新成员加入',
+                        sender: '王语嫣',
+                        time: '昨天'
+                    },
+                    {
+                        key: "4",
+                        avatar: require('@/assets/logo.png'),
+                        content: '您发表了一篇新随笔',
+                        sender: '未知',
+                        time: '昨天'
+                    },
+                    {
+                        key: "5",
+                        avatar: require('@/assets/logo.png'),
+                        content: '您发表了一篇新随笔',
+                        sender: '上官婉儿',
+                        time: '前天'
+                    }]
             }
+
         },
         methods: {
             onCollapse(name) {
@@ -129,14 +164,5 @@
         font-size: 20px;
         color: black;
         cursor: pointer;
-
-        img {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            margin: 10px 0px 10px 10px;
-            float: right;
-        }
-
     }
 </style>

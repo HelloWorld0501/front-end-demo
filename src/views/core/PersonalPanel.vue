@@ -1,54 +1,64 @@
 <template>
-    <div class="personal-panel">
-        <div class="personal-desc" :style="{'background':this.$tool.getStoreValue('themeColor')}">
-            <div>
-                <Avatar class="avatar" shape="square" :src="require('@/assets/logo.png')"/>
-            </div>
-            <div class="name-role">
-                <span>{{user.name}} - {{user.role}}</span>
-            </div>
-            <div>
+    <Poptip trigger="hover" padding="0" placement="bottom-end">
+        <span class="user-info">
+            <Avatar shape="square" :src="user.avatar"/>
+            {{user.name}}
+        </span>
+        <div slot="content">
+            <div class="personal-panel">
+                <div class="personal-desc" :style="{'background':this.$tool.getStoreValue('themeColor')}">
+                    <div>
+                        <Avatar class="avatar" shape="square" :src="user.avatar"/>
+                    </div>
+                    <div class="name-role">
+                        <span>{{user.name}} - {{user.role}}</span>
+                    </div>
+                    <div>
                 <span>
                     <Icon size="20" custom="fa fa-clock-o"/>
                     {{user.registeInfo}}
                 </span>
-            </div>
-        </div>
-        <div class="personal-relation">
-            <span class="relation-item">followers</span>
-            <span class="relation-item">watches</span>
-            <span class="relation-item">friends</span>
-        </div>
-        <div class="main-operation">
+                    </div>
+                </div>
+                <div class="personal-relation">
+                    <span class="relation-item">followers</span>
+                    <span class="relation-item">watches</span>
+                    <span class="relation-item">friends</span>
+                </div>
+                <div class="main-operation">
             <span class="main-operation-item">
                 <Button size="default" custom-icon="fa fa-male">个人中心</Button>
             </span>
-            <span class="main-operation-item">
+                    <span class="main-operation-item">
                 <Button size="default" custom-icon="fa fa-key">修改密码</Button>
             </span>
+                </div>
+                <div class="other-operation">
+                    <div class="other-operation-item">
+                        <Icon size="20" custom="fa fa-eraser"/>
+                        清除缓存
+                    </div>
+                    <div class="other-operation-item">
+                        <Icon size="20" custom="fa fa-user"/>
+                        在线人数
+                    </div>
+                    <div class="other-operation-item">
+                        <Icon size="20" custom="fa fa-bell"/>
+                        访问次数
+                    </div>
+                    <div class="other-operation-item">
+                        <Icon size="20" custom="fa fa-undo"/>
+                        {{$t("common.backupRestore")}}
+                    </div>
+                </div>
+                <div class="personal-footer" @click="logout">
+                    <Icon size="20" custom="fa fa-sign-out"/>
+                    {{$t("common.logout")}}
+                </div>
+            </div>
         </div>
-        <div class="other-operation">
-            <div class="other-operation-item">
-                <Icon size="20" custom="fa fa-eraser"/>
-                清除缓存
-            </div>
-            <div class="other-operation-item">
-                <Icon size="20" custom="fa fa-user"/>
-                在线人数
-            </div>
-            <div class="other-operation-item">
-                <Icon size="20" custom="fa fa-bell"/>
-                访问次数
-            </div>
-            <div class="other-operation-item">
-                <Icon size="20" custom="fa fa-undo"/>
-                {{$t("common.backupRestore")}}
-            </div>
-        </div>
-        <div class="personal-footer" @click="logout">
-            <Icon size="20" custom="fa fa-sign-out"/>{{$t("common.logout")}}
-        </div>
-    </div>
+    </Poptip>
+
 </template>
 
 <script>
@@ -59,7 +69,7 @@
                 type: Object,
                 default: {
                     name: 'admin',
-                    avatar: '@/assets/logo.png',
+                    avatar: require('@/assets/logo.png'),
                     role: '超级管理员',
                     registeInfo: '注册时间: XXXX-XX-XX'
                 }
@@ -112,6 +122,12 @@
 </script>
 
 <style lang="scss" scoped>
+    .user-info {
+        font-size: 20px;
+        color: black;
+        cursor: pointer;
+    }
+
     .personal-panel {
         font-size: 14px;
         width: 100%;
