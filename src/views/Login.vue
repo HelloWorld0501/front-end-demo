@@ -27,10 +27,10 @@
         <FormItem>
             <Row>
                 <Col :span="12">
-                    <Button type="primary" style="width: 90%" @click.native.prevent="reset">重置</Button>
+                    <Button type="primary" long @click.native.prevent="reset">重置</Button>
                 </Col>
                 <Col :span="12">
-                    <Button type="primary" style="width: 90%" :loading="loading" @click.native.prevent="login">登录
+                    <Button type="primary" long :loading="loading" @click.native.prevent="login">登录
                     </Button>
                 </Col>
             </Row>
@@ -71,18 +71,24 @@
                     password: this.loginForm.password,
                     captcha: this.loginForm.captcha
                 }
+                // let userInfo = {
+                //     account: 'admin',
+                //     password: 'admin',
+                //     captcha: '11111'
+                // }
                 this.$api.login.login(userInfo).then(res => {
-                    console.log(res)
                     if (res.msg != null) {
                         this.$Notice.error({title: '登录失败', desc: res.msg})
                     } else {
                         Cookies.set('token', res.data.token)
-                        sessionStorage.setItem('user', userInfo.account)
+                        sessionStorage.setItem('userName', userInfo.account)
+                        // this.$store.commit('menuRouteLoaded')
                         this.$router.push('/')
                     }
                     this.loading = false
                 }).catch(err => {
                     this.$Notice.error({title: '登录失败', desc: err.msg})
+                    console.log(err)
                     this.loading = false
                 })
             },

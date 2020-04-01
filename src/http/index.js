@@ -1,25 +1,20 @@
-/*
- * 接口统一集成模块
- */
-import * as login from './modules/login'
-import * as user from './modules/user'
-import * as dept from './modules/dept'
-import * as role from './modules/role'
-import * as menu from './modules/menu'
-import * as dict from './modules/dict'
-import * as config from './modules/config'
-import * as log from './modules/log'
-import * as loginlog from './modules/loginlog'
+// 导入所有接口
+import api from './api'
 
+const install = Vue => {
+    if (install.installed)
+        return;
 
-export default {
-    login,
-    user,
-    dept,
-    role,
-    menu,
-    dict,
-    config,
-    log,
-    loginlog
+    install.installed = true;
+
+    Object.defineProperties(Vue.prototype, {
+        // 注意，此处挂载在 Vue 原型的 $api 对象上
+        $api: {
+            get() {
+                return api
+            }
+        }
+    })
 }
+
+export default install

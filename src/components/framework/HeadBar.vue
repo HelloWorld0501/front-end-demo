@@ -52,22 +52,22 @@
                 notice: [
                     {
                         key: "1",
-                        icon: 'fa fa-envelope-o',
+                        icon: 'fa fa-envelope-o fa-lg',
                         content: '你修改了12431234用户密码'
                     },
                     {
                         key: "2",
-                        icon: 'fa fa-music',
+                        icon: 'fa fa-music fa-lg',
                         content: '你修24124124改了用户头像'
                     },
                     {
                         key: "3",
-                        icon: 'fa fa-edit',
+                        icon: 'fa fa-edit fa-lg',
                         content: '今日123trddd41241225名新成员加入'
                     },
                     {
                         key: "4",
-                        icon: 'fa fa-edit',
+                        icon: 'fa fa-edit fa-lg',
                         content: '您发表了一篇新随笔'
                     }
                 ],

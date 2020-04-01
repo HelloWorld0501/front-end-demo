@@ -62,6 +62,8 @@
 </template>
 
 <script>
+    import Cookies from 'js-cookie'
+
     export default {
         name: "PersonalPanel",
         props: {
@@ -84,10 +86,10 @@
                     title: '警告',
                     content: '<p>真的要退出吗?</p>',
                     onOk: () => {
-                        sessionStorage.removeItem('user')
-                        this.$router.push('login')
                         this.$api.login.logout().then(res => {
-
+                            Cookies.remove('token')
+                            sessionStorage.removeItem('userName')
+                            this.$router.push('/login')
                         }).catch(err => {
                         })
 

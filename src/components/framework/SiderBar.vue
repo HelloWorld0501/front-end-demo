@@ -5,20 +5,52 @@
             <img v-if="collapse" src="@/assets/logo.png"/>
             <div>{{collapse?'':appName}}</div>
         </div>
-        <Menu active-name="1-2" theme="dark" width="auto" :class="menuitemClasses">
-            <MenuItem name="1-1">
-                <Icon type="ios-navigate"></Icon>
-                <span>Option 1</span>
-            </MenuItem>
-            <MenuItem name="1-2">
-                <Icon type="ios-search"></Icon>
-                <span>Option 2</span>
-            </MenuItem>
-            <MenuItem name="1-3">
-                <Icon type="ios-settings"></Icon>
-                <span>Option 3</span>
-            </MenuItem>
+        <!--侧边菜单展开时显示-->
+        <Menu accordion theme="dark" width="auto" v-show="!collapse" @on-select="handleRoute">
+            <template v-for="item in navTree">
+                <Submenu v-if="item.children && item.children.length != 0" :key="item.id" :name="item.name">
+                    <template slot="title">
+                        <Icon :size="20" :custom="item.icon"/>
+                        <span>{{item.name}}</span>
+                    </template>
+                    <MenuItem v-for="subitem in item.children" :key="item.id +'-'+ subitem.id"
+                              :name="subitem.url">
+                        <Icon :size="20" :custom="subitem.icon"/>
+                        <span>{{subitem.name}}</span>
+                    </MenuItem>
+                </Submenu>
+                <MenuItem v-else :key="item.id" :name="item.url">
+                    <Icon :size="20" :custom="item.icon"/>
+                    <span>{{item.name}}</span>
+                </MenuItem>
+            </template>
         </Menu>
+        <!--侧边菜单收缩时显示-->
+        <div v-show="collapse" class="menu-collapsed">
+            <template v-for="item in navTree">
+                <template v-if="item.children && item.children.length != 0">
+                    <Dropdown trigger="click" placement="right-start" :key="item.id" @on-click="handleRoute">
+                        <a class="drop-menu-a" type="text">
+                            <Icon :size="30" :custom="item.icon"/>
+                        </a>
+                        <DropdownMenu slot="list">
+                            <DropdownItem v-for="subitem in item.children" :key="item.id +'-' +subitem.id"
+                                          :name="subitem.url">
+                                <Icon :size="16" :custom="subitem.icon"/>
+                                <span class="menu-item-title">{{subitem.name}}</span>
+                            </DropdownItem>
+                        </DropdownMenu>
+                    </Dropdown>
+                </template>
+                <template v-else>
+                    <Tooltip transfer :content="item.name" placement="right" :key="item.id">
+                        <a @click="handleRoute(item.url)" type="text" class="drop-menu-a">
+                            <Icon :size="30" :custom="item.icon"/>
+                        </a>
+                    </Tooltip>
+                </template>
+            </template>
+        </div>
     </div>
 </template>
 
@@ -27,10 +59,20 @@
 
     export default {
         name: "SiderBar",
+        props: {
+            navTree: {
+                type: Array,
+                default: ''
+            }
+        },
         data() {
             return {}
         },
-        methods: {},
+        methods: {
+            handleRoute(value) {
+                this.$router.push("/" + value)
+            }
+        },
         beforeCreate: function () {
         },
         created: function () {
@@ -46,15 +88,9 @@
         Destoryed: function () {
         },
         computed: {
-            menuitemClasses() {
-                return [
-                    'menu-item',
-                    this.$tool.getStoreValue('collapse') ? 'collapsed-menu' : ''
-                ]
-            },
             ...mapState({
                 appName: state => state.app.appName,
-                collapse: state => state.app.collapse
+                collapse: state => state.app.collapse,
             })
         },
     }
@@ -83,32 +119,20 @@
         }
     }
 
-    .menu-item span {
+    a.drop-menu-a {
+        height: 60px;
         display: inline-block;
-        overflow: hidden;
-        width: 69px;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        vertical-align: bottom;
-        transition: width .2s ease .2s;
+        width: 78px;
+        text-align: center;
+        color: #ffffff;
     }
 
-    .menu-item i {
-        transform: translateX(0px);
-        transition: font-size .2s ease, transform .2s ease;
-        vertical-align: middle;
-        font-size: 16px;
+    a.drop-menu-a i {
+        padding-top: 15px;
     }
 
-    .collapsed-menu span {
-        width: 0px;
-        transition: width .2s ease;
+    .menu-item-title {
+        padding-left: 6px;
     }
 
-    .collapsed-menu i {
-        transform: translateX(5px);
-        transition: font-size .2s ease .2s, transform .2s ease .2s;
-        vertical-align: middle;
-        font-size: 22px;
-    }
 </style>

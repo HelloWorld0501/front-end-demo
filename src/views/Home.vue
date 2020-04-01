@@ -1,7 +1,7 @@
 <template>
     <Layout class="layout">
-        <Sider hide-trigger collapsible :collapsed-width="78" v-model="this.$tool.getStoreValue('collapse')">
-            <SiderBar></SiderBar>
+        <Sider hide-trigger collapsible :collapsed-width="78" v-model="$store.state.app.collapse">
+            <SiderBar :navTree="navTree"></SiderBar>
         </Sider>
         <Layout>
             <Header :style="{padding: 0}" class="layout-header-bar">
@@ -10,29 +10,24 @@
                           type="md-menu"
                           size="24"/>
                 </div>
-                <div class="tool-float">
-                    <Menu mode="horizontal" active-name="1">
-                        <MenuItem name="1">
-                            <Icon type="ios-paper"/>
-                            {{$t("common.doc")}}
-                        </MenuItem>
-                        <MenuItem name="2">
-                            <Icon type="ios-people"/>
-                            项目
-                        </MenuItem>
-                        <MenuItem name="3">
-                            <Icon type="ios-construct"/>
-                            博客
-                        </MenuItem>
-                    </Menu>
-                </div>
+                <Row class="tool-float">
+                    <Col span="8">
+                        <Button type="text" icon="ios-paper">{{$t("common.doc")}}</Button>
+                    </Col>
+                    <Col span="8">
+                        <Button type="text" icon="ios-construct">项目</Button>
+                    </Col>
+                    <Col span="8">
+                        <Button type="text" icon="ios-people">博客</Button>
+                    </Col>
+                </Row>
                 <div>
                     <HeaderBar>
                     </HeaderBar>
                 </div>
             </Header>
             <Content :style="{margin: '20px', background: '#fff', minHeight: '260px'}">
-
+                <Button @click="test">点我</Button>
             </Content>
         </Layout>
     </Layout>
@@ -40,6 +35,8 @@
 <script>
     import SiderBar from '@/components/framework/SiderBar'
     import HeaderBar from '@/components/framework/HeadBar'
+    import {mapState} from 'vuex'
+    import store from "@/store";
 
     export default {
         components: {
@@ -48,26 +45,31 @@
         },
         data() {
             return {
-                // collapsed: false
             }
         },
         computed: {
             rotateIcon() {
                 return [
                     'menu-icon',
-                    this.$tool.getStoreValue('collapse') ? 'rotate-icon' : ''
+                    this.$store.state.app.collapse ? 'rotate-icon' : ''
                 ];
-            }
+            },
+            ...mapState({
+                navTree: state => state.menu.navTree
+            })
         },
         methods: {
             reverseCollapse() {
                 this.$store.commit('onCollapse')
+            },
+            test() {
+                console.log(store.getters.menuRouteLoad)
             }
         }
     }
 </script>
 <style scoped>
-    .tool-float {
+    .tool-float, .tool-float div {
         float: left;
     }
 
