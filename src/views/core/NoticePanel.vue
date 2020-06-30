@@ -1,5 +1,5 @@
 <template>
-    <Dropdown>
+    <Dropdown placement="bottom">
         <a href="javascript:void(0)">
             <Badge :offset="[20,-7]" :count="1999" overflow-count="99">
                 <Icon custom="fa fa-bell-o fa-lg"/>

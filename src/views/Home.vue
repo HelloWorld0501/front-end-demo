@@ -1,6 +1,6 @@
 <template>
     <Layout class="layout">
-        <Sider hide-trigger collapsible :collapsed-width="78" v-model="$store.state.app.collapse">
+        <Sider hide-trigger collapsible :collapsed-width="78" v-model="collapse">
             <SiderBar :navTree="navTree"></SiderBar>
         </Sider>
         <Layout>
@@ -10,24 +10,24 @@
                           type="md-menu"
                           size="24"/>
                 </div>
-                <Row class="tool-float">
-                    <Col span="8">
+                <div class="tool-float">
+                    <div>
                         <Button type="text" icon="ios-paper">{{$t("common.doc")}}</Button>
-                    </Col>
-                    <Col span="8">
                         <Button type="text" icon="ios-construct">项目</Button>
-                    </Col>
-                    <Col span="8">
                         <Button type="text" icon="ios-people">博客</Button>
-                    </Col>
-                </Row>
-                <div>
+                    </div>
+                </div>
+                <div style="float: right">
                     <HeaderBar>
                     </HeaderBar>
                 </div>
             </Header>
             <Content :style="{margin: '20px', background: '#fff', minHeight: '260px'}">
-                <Button @click="test">点我</Button>
+                <transition name="fade-transform" mode="out-in">
+                    <keep-alive>
+                        <router-view/>
+                    </keep-alive>
+                </transition>
             </Content>
         </Layout>
     </Layout>
@@ -39,13 +39,13 @@
     import store from "@/store";
 
     export default {
+        name: 'Home',
         components: {
             SiderBar,
             HeaderBar
         },
         data() {
-            return {
-            }
+            return {}
         },
         computed: {
             rotateIcon() {
@@ -55,7 +55,9 @@
                 ];
             },
             ...mapState({
-                navTree: state => state.menu.navTree
+                navTree: state => state.menu.navTree,
+                collapse: state => state.app.collapse
+
             })
         },
         methods: {
@@ -69,7 +71,7 @@
     }
 </script>
 <style scoped>
-    .tool-float, .tool-float div {
+    .tool-float {
         float: left;
     }
 

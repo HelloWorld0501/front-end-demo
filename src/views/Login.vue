@@ -39,7 +39,6 @@
 </template>
 
 <script>
-    import Cookies from 'js-cookie'
 
     export default {
         name: "Login",
@@ -66,29 +65,20 @@
         methods: {
             login() {
                 this.loading = true
-                let userInfo = {
-                    account: this.loginForm.account,
-                    password: this.loginForm.password,
-                    captcha: this.loginForm.captcha
-                }
                 // let userInfo = {
-                //     account: 'admin',
-                //     password: 'admin',
-                //     captcha: '11111'
+                //     account: this.loginForm.account,
+                //     password: this.loginForm.password,
+                //     captcha: this.loginForm.captcha
                 // }
-                this.$api.login.login(userInfo).then(res => {
-                    if (res.msg != null) {
-                        this.$Notice.error({title: '登录失败', desc: res.msg})
-                    } else {
-                        Cookies.set('token', res.data.token)
-                        sessionStorage.setItem('userName', userInfo.account)
-                        // this.$store.commit('menuRouteLoaded')
-                        this.$router.push('/')
-                    }
+                let userInfo = {
+                    account: 'admin',
+                    password: 'admin',
+                    captcha: '11111'
+                }
+                this.$store.dispatch('user/userLogin',userInfo).then(() => {
                     this.loading = false
-                }).catch(err => {
-                    this.$Notice.error({title: '登录失败', desc: err.msg})
-                    console.log(err)
+                    this.$router.push({path: '/'})
+                }).catch(() => {
                     this.loading = false
                 })
             },

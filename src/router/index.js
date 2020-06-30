@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import api from '@/http/api'
-import store from '@/store'
+import Cookies from 'js-cookie'
 
 Vue.use(Router)
 
@@ -10,7 +9,153 @@ const routes = [
         path: '/',
         name: 'Home',
         component: () => import('@/views/Home.vue'),
-        children: []
+        // children: [
+        //     {
+        //         path: '/sys/user',
+        //         component: () => import('@/Sys/User.vue'),
+        //         name: '用户管理',
+        //         meta: {
+        //             icon: 'fa fa-user-circle',
+        //             index: 2
+        //         }
+        //     },
+        //     {
+        //         path: '/sys/dept',
+        //         component: () => import('@/Sys/Dept.vue'),
+        //         name: '机构管理',
+        //         meta: {
+        //             icon: 'fa fa-university',
+        //             index: 7
+        //         }
+        //     },
+        //     {
+        //         path: '/sys/role',
+        //         component: () => import('@/Sys/Role.vue'),
+        //         name: '角色管理',
+        //         meta: {
+        //             icon: 'fa fa-address-card',
+        //             index: 12
+        //         }
+        //     },
+        //     {
+        //         path: '/sys/menu',
+        //         component: () => import('@/Sys/Menu.vue'),
+        //         name: '菜单管理',
+        //         meta: {
+        //             icon: 'fa fa-bars',
+        //             index: 17
+        //         }
+        //     },
+        //     {
+        //         path: '/sys/dict',
+        //         component: () => import('@/Sys/Dict.vue'),
+        //         name: '字典管理',
+        //         meta: {
+        //             icon: 'fa fa-list-ol',
+        //             index: 22
+        //         }
+        //     },
+        //     {
+        //         path: '/sys/config',
+        //         component: () => import('@/Sys/Config.vue'),
+        //         name: '系统配置',
+        //         meta: {
+        //             icon: 'fa fa-pencil-square-o',
+        //             index: 27
+        //         }
+        //     },
+        //     {
+        //         path: '/sys/loginlog',
+        //         component: () => import('@/Sys/Loginlog.vue'),
+        //         name: '登录日志',
+        //         meta: {
+        //             icon: 'fa fa-at',
+        //             index: 32
+        //         }
+        //     },
+        //     {
+        //         path: '/sys/log',
+        //         component: () => import('@/Sys/Log.vue'),
+        //         name: '操作日志',
+        //         meta: {
+        //             icon: 'fa fa-file-text-o',
+        //             index: 35
+        //         }
+        //     },
+        //     {
+        //         path: 'http://127.0.0.1:8500',
+        //         component: 'null',
+        //         name: '注册中心',
+        //         meta: {
+        //             icon: 'fa fa-registered',
+        //             index: 44
+        //         }
+        //     },
+        //     {
+        //         path: 'http://127.0.0.1:8001/swagger-ui.html',
+        //         component: 'null',
+        //         name: '接口文档',
+        //         meta: {
+        //             icon: 'fa fa-file-word-o',
+        //             index: 46
+        //         }
+        //     },
+        //     {
+        //         path: 'http://127.0.0.1:8001/druid/login.html',
+        //         component: 'null',
+        //         name: '数据监控',
+        //         meta: {
+        //             icon: 'fa fa-database',
+        //             index: 39
+        //         }
+        //     },
+        //     {
+        //         path: 'http://127.0.0.1:8000/',
+        //         component: 'null',
+        //         name: '服务监控',
+        //         meta: {
+        //             icon: 'fa fa-tasks',
+        //             index: 41
+        //         }
+        //     },
+        //     {
+        //         path: '/generator/generator',
+        //         component: () => import('@/Generator/Generator.vue'),
+        //         name: '代码生成',
+        //         meta: {
+        //             icon: 'fa fa-star',
+        //             index: 48
+        //         }
+        //     },
+        //     {
+        //         path: '/sys/online',
+        //         component: () => import('@/Sys/Online.vue'),
+        //         name: '在线用户',
+        //         meta: {
+        //             icon: 'fa fa-users',
+        //             index: 50
+        //         }
+        //     },
+        //     {
+        //         path: '/demo/i18n',
+        //         component: () => import('@/Demo/I18n.vue'),
+        //         name: '国际化',
+        //         meta: {
+        //             icon: 'fa fa-language',
+        //             index: 53
+        //         }
+        //     },
+        //     {
+        //         path: '/demo/theme',
+        //         component: () => import('@/Demo/Theme.vue'),
+        //         name: '换皮肤',
+        //         meta: {
+        //             icon: 'fa fa-picture-o',
+        //             index: 55
+        //         }
+        //     }
+        // ]
+
     },
     {
         path: '/login',
@@ -23,105 +168,47 @@ const routes = [
         component: () => import('@/views/404.vue')
     }
 ]
-const router = new Router({
-    mode: 'history',
+
+const createRouter = () => new Router({
     baseURI: process.env.BASE_URL,
     routes
 })
-router.beforeEach((to, from, next) => {
-    // if (to.path === from.path) {
-    //     return
+const router = createRouter()
+
+/**
+ *  解决url刷新后路由被重置
+ * @param params
+ */
+    // router.$addRoutes = (params) => {
+    //     router.matcher = new Router({ // 重置路由规则
+    //         routes
+    //     }).matcher
+    //     router.addRoutes(params) // 添加路由
     // }
-    let userName = sessionStorage.getItem('userName')
+    // router.onReady(() => {
+    //     if (store.state.app.menuRouteLoad)
+    //         addDynamicRoutes(store.state.menu.navTree)
+    // })
+
+const originalPush = Router.prototype.push
+Router.prototype.push = function push(location) {
+    return originalPush.call(this, location).catch(err => err)
+}
+router.beforeEach((to, from, next) => {
+    let token = Cookies.get('token')
     if (to.path === '/login') {
         //已经登录的情况下想去登录页
-        if (userName) {
+        if (token) {
             next({path: '/'})
         } else {
             next()
         }
     } else {
-        if (userName) {
-            addDynamicMenuAndRoutes(userName, to, from)
+        if (token) {
             next()
         } else {
             next({path: '/login'})
         }
     }
 })
-
-/**
- * 动态加载路由和菜单以及权限
- * @param userName
- * @param to
- * @param from
- */
-function addDynamicMenuAndRoutes(userName, to, from) {
-    console.log(store.state.app.menuRouteLoad)
-    if (store.state.app.menuRouteLoad) {
-        console.log('动态路由表已经是true')
-        return
-    }
-    api.menu.findNavTree({'userName': userName}).then(res => {
-        //递归加载
-        let dynamicRoutes = addDynamicRoutes(res.data)
-        router.options.routes[0].children = router.options.routes[0].children.concat(dynamicRoutes)
-        router.addRoutes(router.options.routes)
-        //改变加载状态
-        store.commit('menuRouteLoaded', true)
-        //存储菜单树
-        store.commit('setNavTree', res.data)
-    })
-    api.user.findPermissions({'name': userName}).then(res => {
-        //存储用户权限
-        store.commit('setPerms', res.data)
-    })
-}
-
-/**
- * 加载动态菜单路由
- * @param menuList
- * @param routes
- */
-function addDynamicRoutes(menuList = [], routes = []) {
-    let temp = []
-    for (let menu of menuList) {
-        if (menu.children && menu.children.length >= 1) {
-            temp = temp.concat(menu.children)
-        } else if (menu.url && /\S/.test(menu)) {
-            menu.url = menu.url.replace(/^\//, '')
-            // 建立路由配置
-            let route = {
-                path: menu.url,
-                component: null,
-                name: menu.name,
-                meta: {
-                    icon: menu.icon,
-                    index: menu.id
-                }
-            }
-            try {
-                //    根据菜单URL动态加载VUE组件,组件根路径为'@'(src)
-                let array = menu.url.split('/')
-                let url = ''
-                for (let urlItem of array) {
-                    url += urlItem.substring(0, 1).toUpperCase() + urlItem.substring(1) + '/'
-                }
-                url = url.substring(0, url.length - 1)
-                route['component'] = resolve => require([`@/views/${url}`], resolve)
-            } catch (e) {
-
-            }
-            routes.push(route)
-        }
-    }
-    if (temp.length >= 1) {
-        addDynamicRoutes(temp, routes)
-    } else {
-        console.log('动态路由加载...')
-        console.log('动态路由加载完成.')
-    }
-    return routes
-}
-
 export default router

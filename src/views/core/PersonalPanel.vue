@@ -2,37 +2,34 @@
     <Poptip trigger="hover" padding="0" placement="bottom-end">
         <span class="user-info">
             <Avatar shape="square" :src="user.avatar"/>
-            {{user.name}}
         </span>
         <div slot="content">
             <div class="personal-panel">
-                <div class="personal-desc" :style="{'background':this.$tool.getStoreValue('themeColor')}">
+                <div class="personal-desc" :style="{'background':themeColor}">
                     <div>
                         <Avatar class="avatar" shape="square" :src="user.avatar"/>
                     </div>
                     <div class="name-role">
                         <span>{{user.name}} - {{user.role}}</span>
                     </div>
-                    <div>
-                <span>
+                    <span>
                     <Icon size="20" custom="fa fa-clock-o"/>
                     {{user.registeInfo}}
                 </span>
-                    </div>
                 </div>
-                <div class="personal-relation">
-                    <span class="relation-item">followers</span>
-                    <span class="relation-item">watches</span>
-                    <span class="relation-item">friends</span>
-                </div>
-                <div class="main-operation">
-            <span class="main-operation-item">
-                <Button size="default" custom-icon="fa fa-male">个人中心</Button>
-            </span>
-                    <span class="main-operation-item">
-                <Button size="default" custom-icon="fa fa-key">修改密码</Button>
-            </span>
-                </div>
+            </div>
+            <div class="personal-relation">
+                <span class="relation-item">followers</span>
+                <span class="relation-item">watches</span>
+                <span class="relation-item">friends</span>
+            </div>
+            <div class="main-operation">
+                <span class="main-operation-item">
+                    <Button size="default" custom-icon="fa fa-male">个人中心</Button>
+                </span>
+                <span class="main-operation-item">
+                    <Button size="default" custom-icon="fa fa-key">修改密码</Button>
+                </span>
                 <div class="other-operation">
                     <div class="other-operation-item">
                         <Icon size="20" custom="fa fa-eraser"/>
@@ -62,10 +59,11 @@
 </template>
 
 <script>
-    import Cookies from 'js-cookie'
+    import {logout} from "@/utils/tools";
+    import {mapState} from "vuex";
 
     export default {
-        name: "PersonalPanel",
+        name: "personalPanel",
         props: {
             user: {
                 type: Object,
@@ -80,6 +78,11 @@
         data() {
             return {}
         },
+        computed: {
+            ...mapState({
+                themeColor: state => state.app.themeColor
+            })
+        },
         methods: {
             logout() {
                 this.$Modal.confirm({
@@ -87,9 +90,8 @@
                     content: '<p>真的要退出吗?</p>',
                     onOk: () => {
                         this.$api.login.logout().then(res => {
-                            Cookies.remove('token')
-                            sessionStorage.removeItem('userName')
-                            this.$router.push('/login')
+                            logout()
+                            this.$router.push({path: '/login'})
                         }).catch(err => {
                         })
 
@@ -171,10 +173,7 @@
     }
 
     .main-operation {
-        padding: 8px;
-        margin-right: 1px;
         border-color: rgba(201, 206, 206, 0.2);
-        border-top-width: 1px;
     }
 
     .main-operation-item {

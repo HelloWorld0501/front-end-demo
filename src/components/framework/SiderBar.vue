@@ -3,7 +3,7 @@
         <div class="logo" style="background: #14889A"
              @click="$route.path === '/' ? '' :$router.push('/')">
             <img v-if="collapse" src="@/assets/logo.png"/>
-            <div>{{collapse?'':appName}}</div>
+            <div v-else>{{appName}}</div>
         </div>
         <!--侧边菜单展开时显示-->
         <Menu accordion theme="dark" width="auto" v-show="!collapse" @on-select="handleRoute">
@@ -29,7 +29,7 @@
         <div v-show="collapse" class="menu-collapsed">
             <template v-for="item in navTree">
                 <template v-if="item.children && item.children.length != 0">
-                    <Dropdown trigger="click" placement="right-start" :key="item.id" @on-click="handleRoute">
+                    <Dropdown placement="right-start" :key="item.id" @on-click="handleRoute">
                         <a class="drop-menu-a" type="text">
                             <Icon :size="30" :custom="item.icon"/>
                         </a>
@@ -56,7 +56,7 @@
 
 <script>
     import {mapState} from 'vuex'
-
+    import {checkUrlIsWebSite} from '@/utils/tools'
     export default {
         name: "SiderBar",
         props: {
@@ -70,7 +70,8 @@
         },
         methods: {
             handleRoute(value) {
-                this.$router.push("/" + value)
+                console.log(value)
+                checkUrlIsWebSite(value)?window.open(value):null// this.$router.push(value)
             }
         },
         beforeCreate: function () {

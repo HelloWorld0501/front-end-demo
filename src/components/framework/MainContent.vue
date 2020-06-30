@@ -1,6 +1,6 @@
 <template>
     <div id="main-container" class="main-container"
-         :class="$store.state.app.collapse?'position-collapse-left':'position-left'">
+         :class="collapse?'position-collapse-left':'position-left'">
         <!--        标签页-->
         <div class="tab-container"></div>
         <!--        主内容-->
@@ -15,6 +15,8 @@
 </template>
 
 <script>
+    import {mapState} from "vuex"
+
     export default {
         name: "MainContent",
         data() {
@@ -22,6 +24,11 @@
         },
         methods: {},
         beforeCreate: function () {
+        },
+        computed:{
+            ...mapState({
+                collapse: state => state.app.collapse
+            })
         },
         created: function () {
         },

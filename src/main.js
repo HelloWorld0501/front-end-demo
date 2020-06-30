@@ -8,14 +8,11 @@ import api from './http'
 import 'font-awesome/css/font-awesome.min.css'
 import i18n from './i18n'
 import store from './store'
-import tool from '@/js/tool'
 
 Vue.use(api)
 Vue.use(ViewUI)
 Vue.config.productionTip = false
 Vue.prototype.global = global
-// Vue.prototype.$api = api
-Vue.prototype.$tool = tool
 new Vue({
     i18n,
     router,

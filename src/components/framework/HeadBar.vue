@@ -1,23 +1,23 @@
 <template>
     <!--工具栏-->
     <div class="toolbar">
-        <div class="toolbar-item">
+        <div>
             <ThemePicker></ThemePicker>
         </div>
         <!--        多语言-->
-        <div class="toolbar-item">
-            <Internationalization></Internationalization>
+        <div>
+            <NoticePanel :notice="notice"></NoticePanel>
         </div>
         <!--       私信-->
-        <div class="toolbar-item">
+        <div>
             <MessagePanel :letters="letters"></MessagePanel>
         </div>
         <!--        通知消息-->
-        <div class="toolbar-item">
-            <NoticePanel :notice="notice"></NoticePanel>
+        <div>
+            <Internationalization></Internationalization>
         </div>
-        <!--        头像-->
-        <div class="toolbar-item">
+        <!--头像-->
+        <div>
             <PersonalPanel :user="user"></PersonalPanel>
         </div>
     </div>
@@ -111,12 +111,9 @@
 
         },
         methods: {
-            onCollapse(name) {
+            onCollapse() {
                 this.$store.commit('onCollapse')
-            },
-            collapsedSider() {
-                this.$refs.side1.toggleCollapse();
-            },
+            }
         }
         ,
         beforeCreate: function () {
@@ -152,12 +149,11 @@
 <style scoped lang="scss">
     .toolbar {
         float: right;
-        padding-right: 25px;
     }
 
-    .toolbar-item {
+    .toolbar div {
         float: left;
-        padding-left: 45px;
+        padding: 0 10px;
     }
 
     .user-info {

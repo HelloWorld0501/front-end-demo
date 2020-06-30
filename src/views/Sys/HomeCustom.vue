@@ -1,14 +1,12 @@
 <template>
-    <ColorPicker v-model="theme"/>
+    <div class="container"></div>
 </template>
 
 <script>
     export default {
-        name: "ThemePicker",
+        name: 'HomeCustom',
         data() {
-            return {
-                theme: 'ff66cc'
-            }
+            return {}
         },
         methods: {},
         beforeCreate: function () {
@@ -28,6 +26,10 @@
     }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+    .container {
+        width: 100%;
+        height: 100%;
+        background-color: #14889A;
+    }
 </style>
