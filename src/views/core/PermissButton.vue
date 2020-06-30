@@ -5,7 +5,8 @@
             :custom-icon="customIcon"
             :loading="loading"
             :disabled="isDisable(perms)"
-            @click="handClick">{{label}}
+            @click="handClick"
+    :perms="perms">{{label}}
     </Button>
 </template>
 
