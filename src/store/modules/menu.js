@@ -1,9 +1,14 @@
 export default {
     state: {
         navTree: [], //导航树
-        dynamicRouters: []
+        dynamicRouters: [],
+        tagNavList:[]
     },
-    getters: {},
+    getters: {
+        tagNavList(state){
+            return state.tagNavList
+        }
+    },
     mutations: {
         setNavTree(state, navTree) {
             state.navTree = navTree

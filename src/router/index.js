@@ -1,160 +1,160 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Cookies from 'js-cookie'
-
+import store from "@/store";
 Vue.use(Router)
 
 const routes = [
     {
         path: '/',
-        name: 'Home',
+        name: '首页',
         component: () => import('@/views/Home.vue'),
-        // children: [
-        //     {
-        //         path: '/sys/user',
-        //         component: () => import('@/Sys/User.vue'),
-        //         name: '用户管理',
-        //         meta: {
-        //             icon: 'fa fa-user-circle',
-        //             index: 2
-        //         }
-        //     },
-        //     {
-        //         path: '/sys/dept',
-        //         component: () => import('@/Sys/Dept.vue'),
-        //         name: '机构管理',
-        //         meta: {
-        //             icon: 'fa fa-university',
-        //             index: 7
-        //         }
-        //     },
-        //     {
-        //         path: '/sys/role',
-        //         component: () => import('@/Sys/Role.vue'),
-        //         name: '角色管理',
-        //         meta: {
-        //             icon: 'fa fa-address-card',
-        //             index: 12
-        //         }
-        //     },
-        //     {
-        //         path: '/sys/menu',
-        //         component: () => import('@/Sys/Menu.vue'),
-        //         name: '菜单管理',
-        //         meta: {
-        //             icon: 'fa fa-bars',
-        //             index: 17
-        //         }
-        //     },
-        //     {
-        //         path: '/sys/dict',
-        //         component: () => import('@/Sys/Dict.vue'),
-        //         name: '字典管理',
-        //         meta: {
-        //             icon: 'fa fa-list-ol',
-        //             index: 22
-        //         }
-        //     },
-        //     {
-        //         path: '/sys/config',
-        //         component: () => import('@/Sys/Config.vue'),
-        //         name: '系统配置',
-        //         meta: {
-        //             icon: 'fa fa-pencil-square-o',
-        //             index: 27
-        //         }
-        //     },
-        //     {
-        //         path: '/sys/loginlog',
-        //         component: () => import('@/Sys/Loginlog.vue'),
-        //         name: '登录日志',
-        //         meta: {
-        //             icon: 'fa fa-at',
-        //             index: 32
-        //         }
-        //     },
-        //     {
-        //         path: '/sys/log',
-        //         component: () => import('@/Sys/Log.vue'),
-        //         name: '操作日志',
-        //         meta: {
-        //             icon: 'fa fa-file-text-o',
-        //             index: 35
-        //         }
-        //     },
-        //     {
-        //         path: 'http://127.0.0.1:8500',
-        //         component: 'null',
-        //         name: '注册中心',
-        //         meta: {
-        //             icon: 'fa fa-registered',
-        //             index: 44
-        //         }
-        //     },
-        //     {
-        //         path: 'http://127.0.0.1:8001/swagger-ui.html',
-        //         component: 'null',
-        //         name: '接口文档',
-        //         meta: {
-        //             icon: 'fa fa-file-word-o',
-        //             index: 46
-        //         }
-        //     },
-        //     {
-        //         path: 'http://127.0.0.1:8001/druid/login.html',
-        //         component: 'null',
-        //         name: '数据监控',
-        //         meta: {
-        //             icon: 'fa fa-database',
-        //             index: 39
-        //         }
-        //     },
-        //     {
-        //         path: 'http://127.0.0.1:8000/',
-        //         component: 'null',
-        //         name: '服务监控',
-        //         meta: {
-        //             icon: 'fa fa-tasks',
-        //             index: 41
-        //         }
-        //     },
-        //     {
-        //         path: '/generator/generator',
-        //         component: () => import('@/Generator/Generator.vue'),
-        //         name: '代码生成',
-        //         meta: {
-        //             icon: 'fa fa-star',
-        //             index: 48
-        //         }
-        //     },
-        //     {
-        //         path: '/sys/online',
-        //         component: () => import('@/Sys/Online.vue'),
-        //         name: '在线用户',
-        //         meta: {
-        //             icon: 'fa fa-users',
-        //             index: 50
-        //         }
-        //     },
-        //     {
-        //         path: '/demo/i18n',
-        //         component: () => import('@/Demo/I18n.vue'),
-        //         name: '国际化',
-        //         meta: {
-        //             icon: 'fa fa-language',
-        //             index: 53
-        //         }
-        //     },
-        //     {
-        //         path: '/demo/theme',
-        //         component: () => import('@/Demo/Theme.vue'),
-        //         name: '换皮肤',
-        //         meta: {
-        //             icon: 'fa fa-picture-o',
-        //             index: 55
-        //         }
-        //     }
-        // ]
+        children: [
+            {
+                path: '/sys/user',
+                component: () => import('@/views/Sys/User.vue'),
+                name: '用户管理',
+                meta: {
+                    icon: 'fa fa-user-circle',
+                    index: 2
+                }
+            },
+            // {
+            //     path: '/sys/dept',
+            //     component: () => import('@/Sys/Dept.vue'),
+            //     name: '机构管理',
+            //     meta: {
+            //         icon: 'fa fa-university',
+            //         index: 7
+            //     }
+            // },
+            // {
+            //     path: '/sys/role',
+            //     component: () => import('@/Sys/Role.vue'),
+            //     name: '角色管理',
+            //     meta: {
+            //         icon: 'fa fa-address-card',
+            //         index: 12
+            //     }
+            // },
+            // {
+            //     path: '/sys/menu',
+            //     component: () => import('@/Sys/Menu.vue'),
+            //     name: '菜单管理',
+            //     meta: {
+            //         icon: 'fa fa-bars',
+            //         index: 17
+            //     }
+            // },
+            // {
+            //     path: '/sys/dict',
+            //     component: () => import('@/Sys/Dict.vue'),
+            //     name: '字典管理',
+            //     meta: {
+            //         icon: 'fa fa-list-ol',
+            //         index: 22
+            //     }
+            // },
+            // {
+            //     path: '/sys/config',
+            //     component: () => import('@/Sys/Config.vue'),
+            //     name: '系统配置',
+            //     meta: {
+            //         icon: 'fa fa-pencil-square-o',
+            //         index: 27
+            //     }
+            // },
+            // {
+            //     path: '/sys/loginlog',
+            //     component: () => import('@/Sys/Loginlog.vue'),
+            //     name: '登录日志',
+            //     meta: {
+            //         icon: 'fa fa-at',
+            //         index: 32
+            //     }
+            // },
+            // {
+            //     path: '/sys/log',
+            //     component: () => import('@/Sys/Log.vue'),
+            //     name: '操作日志',
+            //     meta: {
+            //         icon: 'fa fa-file-text-o',
+            //         index: 35
+            //     }
+            // },
+            // {
+            //     path: 'http://127.0.0.1:8500',
+            //     component: 'null',
+            //     name: '注册中心',
+            //     meta: {
+            //         icon: 'fa fa-registered',
+            //         index: 44
+            //     }
+            // },
+            // {
+            //     path: 'http://127.0.0.1:8001/swagger-ui.html',
+            //     component: 'null',
+            //     name: '接口文档',
+            //     meta: {
+            //         icon: 'fa fa-file-word-o',
+            //         index: 46
+            //     }
+            // },
+            // {
+            //     path: 'http://127.0.0.1:8001/druid/login.html',
+            //     component: 'null',
+            //     name: '数据监控',
+            //     meta: {
+            //         icon: 'fa fa-database',
+            //         index: 39
+            //     }
+            // },
+            // {
+            //     path: 'http://127.0.0.1:8000/',
+            //     component: 'null',
+            //     name: '服务监控',
+            //     meta: {
+            //         icon: 'fa fa-tasks',
+            //         index: 41
+            //     }
+            // },
+            // {
+            //     path: '/generator/generator',
+            //     component: () => import('@/Generator/Generator.vue'),
+            //     name: '代码生成',
+            //     meta: {
+            //         icon: 'fa fa-star',
+            //         index: 48
+            //     }
+            // },
+            // {
+            //     path: '/sys/online',
+            //     component: () => import('@/Sys/Online.vue'),
+            //     name: '在线用户',
+            //     meta: {
+            //         icon: 'fa fa-users',
+            //         index: 50
+            //     }
+            // },
+            // {
+            //     path: '/demo/i18n',
+            //     component: () => import('@/Demo/I18n.vue'),
+            //     name: '国际化',
+            //     meta: {
+            //         icon: 'fa fa-language',
+            //         index: 53
+            //     }
+            // },
+            // {
+            //     path: '/demo/theme',
+            //     component: () => import('@/Demo/Theme.vue'),
+            //     name: '换皮肤',
+            //     meta: {
+            //         icon: 'fa fa-picture-o',
+            //         index: 55
+            //     }
+            // }
+        ]
 
     },
     {
@@ -201,14 +201,19 @@ router.beforeEach((to, from, next) => {
         if (token) {
             next({path: '/'})
         } else {
+            // store.state.menu.tagNavList.push({name:to.name,path:to.path})
             next()
         }
     } else {
         if (token) {
+            // store.state.menu.tagNavList.push({name:to.name,path:to.path})
             next()
         } else {
             next({path: '/login'})
         }
     }
 })
+// router.afterEach(function(p1,p2){
+//     console.log(p1,p2)
+// })
 export default router

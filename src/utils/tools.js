@@ -1,5 +1,6 @@
 import Cookies from 'js-cookie'
-import store from "@/store";
+import store from '@/store'
+import router from '@/router'
 
 /**
  * 退出后清除本地存储
@@ -75,3 +76,6 @@ export const hasPermission = (perms) => {
     let permissions = store.state.user.perms
     return permissions.findIndex((value) => value === perms) == -1 ? false : true
 }
+
+
+

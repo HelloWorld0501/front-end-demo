@@ -8,6 +8,7 @@ import api from './http'
 import 'font-awesome/css/font-awesome.min.css'
 import i18n from './i18n'
 import store from './store'
+require('@/mock')
 
 Vue.use(api)
 Vue.use(ViewUI)

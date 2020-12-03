@@ -1,5 +1,5 @@
 <template>
-    <Poptip trigger="hover" padding="0" placement="bottom-end">
+    <Poptip v-model="visible" trigger="hover" padding="0" placement="bottom-end">
         <span class="user-info">
             <Avatar shape="square" :src="user.avatar"/>
         </span>
@@ -13,7 +13,7 @@
                         <span>{{user.name}} - {{user.role}}</span>
                     </div>
                     <span>
-                    <Icon size="20" custom="fa fa-clock-o"/>
+                    <Icon size="15" type="md-time"/>
                     {{user.registeInfo}}
                 </span>
                 </div>
@@ -24,12 +24,20 @@
                 <span class="relation-item">friends</span>
             </div>
             <div class="main-operation">
-                <span class="main-operation-item">
-                    <Button size="default" custom-icon="fa fa-male">个人中心</Button>
+                <div class="main-operation-item">
+                    <span class="main-operation-item">
+                    <Button size="default" icon="md-person">个人中心</Button>
                 </span>
-                <span class="main-operation-item">
-                    <Button size="default" custom-icon="fa fa-key">修改密码</Button>
+                    <span class="main-operation-item">
+                    <Button size="default" icon="md-key">修改密码</Button>
                 </span>
+                </div>
+                <!--<span class="main-operation-item">-->
+                <!--    <Button size="default" custom-icon="fa fa-male">个人中心</Button>-->
+                <!--</span>-->
+                <!--<span class="main-operation-item">-->
+                <!--    <Button size="default" custom-icon="fa fa-key">修改密码</Button>-->
+                <!--</span>-->
                 <div class="other-operation">
                     <div class="other-operation-item">
                         <Icon size="20" custom="fa fa-eraser"/>
@@ -49,7 +57,7 @@
                     </div>
                 </div>
                 <div class="personal-footer" @click="logout">
-                    <Icon size="20" custom="fa fa-sign-out"/>
+                    <Icon size="15" type="md-log-out"/>
                     {{$t("common.logout")}}
                 </div>
             </div>
@@ -76,7 +84,9 @@
             }
         },
         data() {
-            return {}
+            return {
+                visible: false
+            }
         },
         computed: {
             ...mapState({
@@ -85,6 +95,7 @@
         },
         methods: {
             logout() {
+                this.visible = false
                 this.$Modal.confirm({
                     title: '警告',
                     content: '<p>真的要退出吗?</p>',
@@ -159,7 +170,6 @@
     .personal-relation {
         font-size: 16px;
         padding: 12px;
-        margin-right: 1px;
         background: rgba(200, 209, 204, 0.3);
     }
 
@@ -177,7 +187,7 @@
     }
 
     .main-operation-item {
-        margin: 15px;
+        margin: 10px;
     }
 
     .other-operation {

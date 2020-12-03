@@ -1,12 +1,13 @@
 <template>
     <Button
             :size="size"
-            :type="type"
+            :type="buttonType"
             :custom-icon="customIcon"
             :loading="loading"
             :disabled="isDisable(perms)"
             @click="handClick"
-    :perms="perms">{{label}}
+            :icon="icon"
+    :perms="perms">{{labelText}}
     </Button>
 </template>
 
@@ -16,14 +17,14 @@
 
     export default {
         name: "PermissButton",
-        prop: {
-            label: {
+        props: {
+            labelText: {
                 type: String,
-                default: 'Button'
+                default: 'ButtonText'
             },
-            type: {
+            buttonType: {
                 type: String,
-                default: 'Button'
+                default: 'primary'
             },
             size: {
                 type: String,
@@ -40,6 +41,10 @@
             customIcon: {
                 type: String,
                 default: ''
+            },
+            icon:{
+                type: String,
+                default: ''
             }
         },
         data() {
@@ -50,7 +55,7 @@
                 return !hasPermission(perms)
             },
             handClick() {
-                this.emit('click', {})
+                this.$emit('click', {})
             }
         },
         beforeCreate: function () {

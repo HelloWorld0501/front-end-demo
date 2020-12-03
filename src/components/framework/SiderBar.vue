@@ -57,6 +57,7 @@
 <script>
     import {mapState} from 'vuex'
     import {checkUrlIsWebSite} from '@/utils/tools'
+
     export default {
         name: "SiderBar",
         props: {
@@ -71,7 +72,7 @@
         methods: {
             handleRoute(value) {
                 console.log(value)
-                checkUrlIsWebSite(value)?window.open(value):null// this.$router.push(value)
+                checkUrlIsWebSite(value) ? window.open(value) : this.$router.push(value)
             }
         },
         beforeCreate: function () {
