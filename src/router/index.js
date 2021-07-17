@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Cookies from 'js-cookie'
 import store from "@/store";
+import {routeIsExist} from '@/utils/tools'
+
 Vue.use(Router)
 
 const routes = [
@@ -201,12 +203,15 @@ router.beforeEach((to, from, next) => {
         if (token) {
             next({path: '/'})
         } else {
-            // store.state.menu.tagNavList.push({name:to.name,path:to.path})
             next()
         }
     } else {
         if (token) {
-            // store.state.menu.tagNavList.push({name:to.name,path:to.path})
+            if (!(routeIsExist(to.path)) && (to.path != 'login')){
+                let currentTags = store.getters.tagNavList
+                currentTags.push({name:to.name,path:to.path})
+                store.commit('setTagNavList',currentTags)
+            }
             next()
         } else {
             next({path: '/login'})
@@ -216,4 +221,12 @@ router.beforeEach((to, from, next) => {
 // router.afterEach(function(p1,p2){
 //     console.log(p1,p2)
 // })
+// function addTags(to){
+//     console.log(to.path)
+//     if (!(routeIsExist(to.path)) && (to.path != 'login')){
+//         let currentTags = store.getters.tagNavList
+//         currentTags.push({name:to.name,path:to.path})
+//         store.commit('setTagNavList',currentTags)
+//     }
+// }
 export default router

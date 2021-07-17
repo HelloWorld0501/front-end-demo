@@ -15,6 +15,9 @@ export default {
         },
         setDynamicRouters(state, dynamicRouters) {
             state.dynamicRouters = dynamicRouters
+        },
+        setTagNavList(state,tagNavs){
+            state.tagNavList = tagNavs
         }
     }
 }

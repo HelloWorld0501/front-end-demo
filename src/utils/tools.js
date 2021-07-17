@@ -1,6 +1,5 @@
 import Cookies from 'js-cookie'
 import store from '@/store'
-import router from '@/router'
 
 /**
  * 退出后清除本地存储
@@ -75,6 +74,11 @@ export const firstUpper = (value) => {
 export const hasPermission = (perms) => {
     let permissions = store.state.user.perms
     return permissions.findIndex((value) => value === perms) == -1 ? false : true
+}
+
+export const routeIsExist = (route) => {
+    let navTags = store.state.menu.tagNavList
+    return navTags.findIndex((value) => value.path === route) == -1 ? false : true
 }
 
 

@@ -42,6 +42,7 @@
                         </DropdownMenu>
                     </Dropdown>
                 </template>
+<!--              只有一个子菜单-->
                 <template v-else>
                     <Tooltip transfer :content="item.name" placement="right" :key="item.id">
                         <a @click="handleRoute(item.url)" type="text" class="drop-menu-a">
