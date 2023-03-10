@@ -19,5 +19,8 @@ export default {
         setTagNavList(state,tagNavs){
             state.tagNavList = tagNavs
         }
+    },
+    actions:{
+
     }
 }
